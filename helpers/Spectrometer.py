@@ -125,6 +125,7 @@ class Spectrometer():
             self.dirty = False
 
         self.scamera.updateFeed(None)
+        self.status.value = "Feed restored"
 
     #----------------------------------------------------------------------------------
     def updateOverlay(self,c):
@@ -144,7 +145,7 @@ class Spectrometer():
         self.p_time.value = strftime("%Y%m%d-%H%M%S") 
         self.setLCD(self.splash) 
         
-        self.scamera.updateOverlayProcess(self.p_crop, self.p_pix1.value, self.p_pix2.value)
+        self.updateOverlay(None)
         self.p_butpro.disabled = False
         self.status.value = "Adjust parameters as needed. When you are happy to proceeed click Process .."
         
@@ -328,7 +329,7 @@ class Spectrometer():
     def show(self):
         display(self.gui)
         self.updateStream()
-        
+
     #----------------------------------------------------------------------------------
     def __init__(self, lcd, neopixel):
         self.lcd = lcd
@@ -352,7 +353,7 @@ class Spectrometer():
             self.p_crop[i].on_submit(self.updateOverlay)
         self.p_pix1.on_submit(self.updateOverlay)
         self.p_pix2.on_submit(self.updateOverlay)
-                
+                       
     #----------------------------------------------------------------------------------
     def shutdown(self, b):
         self.close()
